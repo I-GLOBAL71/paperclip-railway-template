@@ -2,8 +2,7 @@ FROM node:20-slim
 
 # Install gosu for privilege dropping in entrypoint
 RUN apt-get update && apt-get install -y --no-install-recommends gosu && rm -rf /var/lib/apt/lists/*
-RUN npm install -g opencode --unsafe-perm
-
+RUN apt-get update && apt-get install -y curl && curl -fsSL https://opencode.ai/install | bash
 # Create a non-root user (required: Claude CLI refuses --dangerously-skip-permissions as root)
 RUN groupadd -r paperclip && useradd -r -g paperclip -m -d /home/paperclip -s /bin/bash paperclip
 
